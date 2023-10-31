@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const logger = require("../utils/logger");
 const { sequelize } = require("../models");
 const { sendingMail } = require("../emails/sendMail");
-const responseBody = require("../utils/responseBody");
+const { responseBody } = require("../utils/shared");
 
 // Assigning users to the variable User
 const User = sequelize.models.users;

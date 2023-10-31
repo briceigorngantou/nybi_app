@@ -33,8 +33,9 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.NOW("YYYY-MM-DD hh:mm:ss"),
         allowNull: false,
       },
-      size: {
-        type: DataTypes.INTEGER,
+      fileName: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
       },
       typeImage: {
         type: DataTypes.ENUM("profile", "post"),

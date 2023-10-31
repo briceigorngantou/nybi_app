@@ -7,9 +7,13 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const path = require("path");
 const { fileURLToPath } = require("url");
+const swaggerUi = require("swagger-ui-express");
+
 const usersRoutes = require("./routes/users");
+const filesRoutes = require("./routes/files");
 const db = require("./models");
 const logger = require("../server/utils/logger.js");
+const swaggerSpec = require("./swagger");
 
 /** CONFIGURATIONS */
 dotenv.config();
@@ -32,17 +36,6 @@ app.use(
   )
 );
 
-/** FILE STORAGE */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage });
-
 /** DATA BASE SYNC */
 // db.sequelize.sync().then((req) => {
 // listening to server connection
@@ -53,3 +46,14 @@ app.listen(process.env.PORT, () => {
 
 // routes for the user API
 app.use("/api/users", usersRoutes);
+app.use("/api/upload_files", filesRoutes);
+
+// SWAGGER DOCUMENTATION CONFIGS
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    customSiteTitle: "NYBI SWAGGER API",
+  })
+);

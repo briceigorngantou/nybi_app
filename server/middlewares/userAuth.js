@@ -1,7 +1,7 @@
 // importing modules
 const logger = require("../utils/logger");
 const sequelize = require("../models");
-const responseBody = require("../utils/responseBody");
+const { responseBody } = require("../utils/shared");
 
 // Function to check if username, phone or email already exist in the database
 // this is to avoid having two users with the same username and email

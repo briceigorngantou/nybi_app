@@ -1,3 +1,5 @@
+const typeImage = { profile: "profile", post: "post" };
+
 const responseBody = (data, error, res, status) => {
   if (data) {
     res.status(status ? status : 201).send({
@@ -27,4 +29,4 @@ const responseBody = (data, error, res, status) => {
   }
 };
 
-module.exports = responseBody;
+module.exports = { typeImage, responseBody };
