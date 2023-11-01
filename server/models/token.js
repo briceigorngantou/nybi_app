@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class token extends Model {
     /**
@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {}
+    static associate() {}
   }
   token.init(
     {
@@ -15,23 +15,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER
       },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onUpdate: "cascade",
-        onDelete: "cascade",
-        references: { model: "users", key: "id" },
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
+        references: { model: 'users', key: 'id' }
       },
       token: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
-      modelName: "token",
+      modelName: 'token'
     }
   );
   return token;

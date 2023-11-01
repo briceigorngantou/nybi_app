@@ -1,7 +1,7 @@
 // importing modules
-const logger = require("../utils/logger");
-const sequelize = require("../models");
-const { responseBody } = require("../utils/shared");
+const logger = require('../utils/logger.js');
+const sequelize = require('../models/index.js');
+const { responseBody } = require('../utils/shared.js');
 
 // Function to check if username, phone or email already exist in the database
 // this is to avoid having two users with the same username and email
@@ -10,26 +10,26 @@ const saveUser = async (req, res, next) => {
   try {
     const username = await sequelize.users.findOne({
       where: {
-        userName: req.body.userName,
-      },
+        userName: req.body.userName
+      }
     });
     // if username exist in the database respond with a status of 409
     if (username) {
-      logger.warn("username already taken");
-      responseBody(null, "userName already taken", res, 409);
+      logger.warn('username already taken');
+      responseBody(null, 'userName already taken', res, 409);
     }
 
-    //checking if email already exist
+    // checking if email already exist
     const emailcheck = await sequelize.users.findOne({
       where: {
-        email: req.body.email,
-      },
+        email: req.body.email
+      }
     });
 
-    //if email exist in the database respond with a status of 409
+    // if email exist in the database respond with a status of 409
     if (emailcheck) {
-      logger.warn("Authentication failed");
-      responseBody(null, "Authentication failed", res, 409);
+      logger.warn('Authentication failed');
+      responseBody(null, 'Authentication failed', res, 409);
     }
     next();
   } catch (error) {
@@ -38,7 +38,7 @@ const saveUser = async (req, res, next) => {
   }
 };
 
-//exporting module
+// exporting module
 module.exports = {
-  saveUser,
+  saveUser
 };

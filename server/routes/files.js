@@ -1,7 +1,8 @@
 // importing modules
-const express = require("express");
-const upload = require("../functions/filesStorage");
-const uploadFile = require("../controllers/uploadFile");
+const express = require('express');
+
+const upload = require('../functions/filesStorage.js');
+const uploadFile = require('../controllers/uploadFile.js');
 
 const router = express.Router();
 
@@ -31,10 +32,10 @@ const router = express.Router();
  *         deleted:
  *           type: boolean
  *           description: The status tell us if image are delete or no
- *         uploadAt: 
+ *         uploadAt:
  *           type: string
  *           format: date
- *           description: The image upload at  
+ *           description: The image upload at
  */
 
 /**
@@ -65,6 +66,6 @@ const router = express.Router();
  *         description: Some server error
  *
  */
-router.post("/image", upload.single("file"), uploadFile);
+router.post('/image', upload.single('file'), uploadFile);
 
 module.exports = router;

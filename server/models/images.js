@@ -1,5 +1,4 @@
-"use strict";
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class images extends Model {
@@ -11,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.posts.hasMany(images, {
-        foreignKey: "post_id",
-        as: "posts",
+        foreignKey: 'post_id',
+        as: 'posts'
       });
     }
   }
@@ -22,33 +21,33 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        allowNull: false,
+        allowNull: false
       },
       path: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: false
       },
       uploadAt: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW("YYYY-MM-DD hh:mm:ss"),
-        allowNull: false,
+        defaultValue: DataTypes.NOW('YYYY-MM-DD hh:mm:ss'),
+        allowNull: false
       },
       fileName: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: false
       },
       typeImage: {
-        type: DataTypes.ENUM("profile", "post"),
-        allowNull: false,
+        type: DataTypes.ENUM('profile', 'post'),
+        allowNull: false
       },
       deleted: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+        defaultValue: false
+      }
     },
     {
       sequelize,
-      modelName: "images",
+      modelName: 'images'
     }
   );
   return images;
