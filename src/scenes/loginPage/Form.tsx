@@ -19,20 +19,39 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import { setLogin } from 'state';
+
 import FlexBetween from 'components/FlexBetween';
+import { userLogin } from 'apis/login.api';
+import { userRegister } from 'apis/register.api';
 
 const registerSchema = Yup.object().shape({
   lastName: Yup.string().required('lastName is required'),
   email: Yup.string().email().required('email is required'),
-  password: Yup.string().required('password is required'),
+  phone: Yup.string().required('phone is required'),
+  userName: Yup.string().required('username is required'),
+  password: Yup.string()
+    .required('password is required')
+    .matches(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      'Password must be at least 8 characters long and include at least one uppercase letter,' +
+        'one lowercase letter, one digit, and one special character.'
+    ),
+  confirmPassword: Yup.string()
+    .required('confirm password is required')
+    .matches(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      'Password must be at least 8 characters long and include at least one uppercase letter,' +
+        'one lowercase letter, one digit, and one special character.'
+    )
+    .oneOf([Yup.ref('password')], 'Passwords must match'),
   location: Yup.string().required('location is required'),
   occupation: Yup.string().required('occupation is required'),
-  picture: Yup.string().required('picture is required'),
+  picture: Yup.string(),
   firstName: Yup.string().required('firstName is required')
 });
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email().required('email is required'),
+  userName: Yup.string().required('userName is required'),
   password: Yup.string().required('password is required')
 });
 
@@ -41,17 +60,23 @@ const initialValuesRegister = {
   lastName: '',
   email: '',
   password: '',
+  phone: '',
+  userName: '',
+  confirmPassword: '',
   location: '',
   occupation: '',
   picture: File
 };
 
 const initialValuesLogin = {
-  email: '',
+  email: undefined,
   password: '',
+  confirmPassword: undefined,
   firstName: undefined,
+  userName: '',
   lastName: undefined,
   location: undefined,
+  phone: undefined,
   occupation: undefined,
   picture: undefined
 };
@@ -70,15 +95,32 @@ const Form = () => {
 
   const register = async (values: any, onSubmitProps: any) => {
     // api call here
-    console.log(values);
+    const result = await userRegister(values);
+    console.log('result register api core:', result);
+    onSubmitProps.resetForm();
+    if (result?.status === 201 || result?.status === 200) {
+      setPageType('login');
+    }
   };
 
   const login = async (values: any, onSubmitProps: any) => {
     // api call here
-    console.log(values);
+    const result = await userLogin(values.userName, values.password);
+    console.log('result login api core:', result);
+    onSubmitProps.resetForm();
+    if (result?.status === 200 || result?.status === 201) {
+      dispatch(
+        setLogin({
+          user: result.data,
+          token: result.data.token
+        })
+      );
+      navigate('/home');
+    }
   };
 
   const handleFormSubmit = async (values: any, onSubmitProps: any) => {
+    console.log(values);
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -113,6 +155,7 @@ const Form = () => {
                 <>
                   <TextField
                     label="First Name"
+                    required
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.firstName}
@@ -125,6 +168,7 @@ const Form = () => {
                   />
                   <TextField
                     label="Last Name"
+                    required
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.lastName}
@@ -136,7 +180,30 @@ const Form = () => {
                     sx={{ gridColumn: 'span 2' }}
                   />
                   <TextField
+                    label="Email"
+                    required
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.email}
+                    name="email"
+                    error={Boolean(touched.email) && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                    sx={{ gridColumn: 'span 4' }}
+                  />
+                  <TextField
+                    label="Phone Number"
+                    required
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.phone}
+                    name="phone"
+                    error={Boolean(touched.phone) && Boolean(errors.phone)}
+                    helperText={touched.phone && errors.phone}
+                    sx={{ gridColumn: 'span 4' }}
+                  />
+                  <TextField
                     label="Location"
+                    required
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.location}
@@ -150,6 +217,7 @@ const Form = () => {
                   <TextField
                     label="Occupation"
                     onBlur={handleBlur}
+                    required
                     onChange={handleChange}
                     value={values.occupation}
                     name="occupation"
@@ -195,17 +263,19 @@ const Form = () => {
                 </>
               )}
               <TextField
-                label="Email"
+                label="Username"
+                required
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={Boolean(touched.email) && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                value={values.userName}
+                name="userName"
+                error={Boolean(touched.userName) && Boolean(errors.userName)}
+                helperText={touched.userName && errors.userName}
                 sx={{ gridColumn: 'span 4' }}
               />
               <TextField
                 label="Password"
+                required
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.password}
@@ -214,6 +284,22 @@ const Form = () => {
                 helperText={touched.password && errors.password}
                 sx={{ gridColumn: 'span 4' }}
               />
+              {isRegister && (
+                <TextField
+                  label="Confirm Password"
+                  required
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.confirmPassword}
+                  name="confirmPassword"
+                  error={
+                    Boolean(touched.confirmPassword) &&
+                    Boolean(errors.confirmPassword)
+                  }
+                  helperText={touched.confirmPassword && errors.confirmPassword}
+                  sx={{ gridColumn: 'span 4' }}
+                />
+              )}
             </Box>
 
             {/* BUTTONS */}
@@ -225,8 +311,7 @@ const Form = () => {
                   m: '2rem 0',
                   p: '1rem',
                   backgroundColor: palette.primary.main,
-                  color: palette.background.paper,
-                  '&:hover': { color: palette.primary.main }
+                  color: palette.background.paper
                 }}
               >
                 {isLogin ? 'LOGIN' : 'REGISTER'}
@@ -238,11 +323,7 @@ const Form = () => {
                 }}
                 sx={{
                   textDecoration: 'underline',
-                  color: palette.primary.main,
-                  '&:hover': {
-                    cursor: 'pointer',
-                    color: palette.primary.light
-                  }
+                  color: palette.primary.main
                 }}
               >
                 {isLogin

@@ -259,3 +259,29 @@
 {"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-01T18:38:07.574Z"}
 {"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-01T18:38:20.399Z"}
 {"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-01T18:39:11.505Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T19:45:05.365Z"}
+{"level":"error","message":"WHERE parameter \"userName\" has invalid \"undefined\" value","timestamp":"2023-11-02T21:20:15.875Z"}
+{"level":"error","message":"notNull Violation: users.phone cannot be null","timestamp":"2023-11-02T21:21:28.985Z"}
+{"from":"","level":"info","message":"mails options:","subject":"Account Verification Link","text":"Hello, Brice Igor Please verify your email by clicking this link : \n          http://localhost:5005/api/users/verify-email/1/4ccb3f03029e2f7aa26ac648d99ffdf9 ","timestamp":"2023-11-02T21:25:14.903Z","to":"briceigor1027@gmail.com"}
+{"level":"info","message":"user has been created successfully","timestamp":"2023-11-02T21:25:14.911Z"}
+{"level":"info","message":{"createdAt":"2023-11-02T21:25:14.000Z","id":1,"token":"4ccb3f03029e2f7aa26ac648d99ffdf9","updatedAt":"2023-11-02T21:25:14.000Z","user_id":1},"timestamp":"2023-11-02T21:26:25.769Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T21:28:08.017Z"}
+{"from":"cyamtcheu19@gmail.com","level":"info","message":"mails options:","subject":"Account Verification Link","text":"Hello, Brice Igor Please verify your email by clicking this link : \n          http://localhost:5005/api/users/verify-email/2/cd7607de120e778654a061c0b99dab84 ","timestamp":"2023-11-02T21:28:18.985Z","to":"briceigor1027@gmail.com"}
+{"level":"info","message":"user has been created successfully","timestamp":"2023-11-02T21:28:18.990Z"}
+{"level":"info","message":{"createdAt":"2023-11-02T21:28:18.000Z","id":2,"token":"cd7607de120e778654a061c0b99dab84","updatedAt":"2023-11-02T21:28:18.000Z","user_id":2},"timestamp":"2023-11-02T22:33:31.977Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:33:35.439Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:34:34.169Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:34:57.081Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:35:03.659Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:35:30.976Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:35:31.965Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:36:32.368Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:37:03.050Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:37:13.318Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:37:15.023Z"}
+{"level":"info","message":"Connection has been established successfully.","timestamp":"2023-11-02T22:38:11.328Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:38:13.885Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:58:31.739Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T22:59:52.317Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T23:00:23.366Z"}
+{"level":"info","message":"user are authenticate successfully","timestamp":"2023-11-02T23:00:54.163Z"}

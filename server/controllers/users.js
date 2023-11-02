@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
 const logger = require('../utils/logger.js');
@@ -11,7 +12,7 @@ const { responseBody } = require('../utils/shared.js');
 // Assigning users to the variable User
 const User = sequelize.models.users;
 const Token = sequelize.models.token;
-
+dotenv.config();
 /** REGISTER USERS */
 const signUp = async (req, res) => {
   try {
@@ -183,7 +184,7 @@ const login = async (req, res) => {
           console.log(token);
           logger.info('user are authenticate successfully');
           // send user data
-          responseBody(findByUserName, null, res, 201);
+          responseBody({ ...findByUserName.dataValues, token }, null, res, 201);
         } else {
           responseBody(null, 'User not verified', res, 401);
         }
