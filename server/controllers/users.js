@@ -200,4 +200,26 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login, signUp, verifyEmail };
+// GET USER BY ID
+const getUserById = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const findOneUser = await User.findOne({ id: userId });
+    if (findOneUser) {
+      logger.info(findOneUser);
+      responseBody(findOneUser, null, res, 200);
+    } else {
+      responseBody(null, 'User Not found', res, 404);
+    }
+  } catch (error) {
+    logger.error(error);
+    responseBody(null, error, res, 500);
+  }
+};
+
+module.exports = {
+  login,
+  signUp,
+  verifyEmail,
+  getUserById
+};

@@ -1,6 +1,12 @@
 const express = require('express');
 
-const { signUp, login, verifyEmail } = require('../controllers/users.js');
+const {
+  signUp,
+  login,
+  verifyEmail,
+  getUserById
+} = require('../controllers/users.js');
+const { verifyToken } = require('../middlewares/auth.js');
 const userAuth = require('../middlewares/userAuth.js');
 
 const router = express.Router();
@@ -13,6 +19,9 @@ router.post('/login', login);
 
 // email verification route
 router.get('/verify-email/:id/:token', verifyEmail);
+
+// Find one user
+router.get('/findOne/:id', verifyToken, getUserById);
 
 /**
  * @swagger

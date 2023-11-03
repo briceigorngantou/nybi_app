@@ -5,13 +5,13 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { responseBody } = require('../utils/shared.js');
 
-export const verifyToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   try {
     let token = req.header('Authorization');
     if (!token) {
       responseBody(null, 'Access Denied', res, 403);
     }
-    if (token.startWith('Bearer ')) {
+    if (token.startsWith('Bearer ')) {
       token = token.slice(7, token.length).trimLeft();
     }
 
@@ -22,3 +22,5 @@ export const verifyToken = async (req, res, next) => {
     responseBody(null, error.message, res, 500);
   }
 };
+
+module.exports = { verifyToken };
