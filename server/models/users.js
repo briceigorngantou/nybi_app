@@ -1,5 +1,5 @@
-"use strict";
-const { Model, Op } = require("sequelize");
+const { Model, Op } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     /**
@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       users.belongsTo(models.images, {
-        foreignKey: "image_id",
-        as: "images",
+        foreignKey: 'image_id',
+        as: 'images'
       });
     }
   }
@@ -20,69 +20,69 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        allowNull: false,
+        allowNull: false
       },
       userName: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: false
       },
       firstName: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: false
       },
       lastName: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: false
       },
       email: {
         type: DataTypes.STRING(100),
         unique: true,
         validate: {
-          isEmail: true,
+          isEmail: true
         },
-        allowNull: false,
+        allowNull: false
       },
       phone: {
         type: DataTypes.STRING,
         unique: true,
         validate: {
-          [Op.regexp]: /^(0|\+33)[1-9]([-.: ]?[0-9]{2}){4}$/,
+          [Op.regexp]: /^(0|\+33)[1-9]([-.: ]?[0-9]{2}){4}$/
         },
-        allowNull: false,
+        allowNull: false
       },
       password: {
         type: DataTypes.STRING(200),
         unique: true,
-        allowNull: false,
+        allowNull: false
       },
       salt: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: false
       },
       location: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: false
       },
       occupation: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: false
       },
       deleted: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: false
       },
       isVerified: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: false
       },
       isConnected: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+        defaultValue: false
+      }
     },
     {
       sequelize,
-      modelName: "users",
+      modelName: 'users'
     }
   );
   return users;

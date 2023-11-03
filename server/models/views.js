@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class views extends Model {
     /**
@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.users.hasMany(views, {
-        foreignKey: "user_id",
-        as: "views",
+        foreignKey: 'user_id',
+        as: 'views'
       });
       models.posts.hasMany(views, {
-        foreignKey: "post_id",
-        as: "views",
+        foreignKey: 'post_id',
+        as: 'views'
       });
     }
   }
@@ -25,20 +25,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false,
+        allowNull: false
       },
       viewDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: false
       },
       deleted: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+        defaultValue: false
+      }
     },
     {
       sequelize,
-      modelName: "views",
+      modelName: 'views'
     }
   );
   return views;
